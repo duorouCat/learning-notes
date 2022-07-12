@@ -26,3 +26,5 @@ deployment
 statefulset
     有状态的合集，负责管理有状态服务，比如数据库等
     由三部分组成：Headless Service、StatefulSet、volumeClaimTemplates
+        Headless Service：
+        https://www.cnblogs.com/tylerzhou/p/11027559.html
