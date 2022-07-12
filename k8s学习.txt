@@ -1,0 +1,28 @@
+deployment
+    是用于部署应用的对象，为replicaset和pod提供声明式定义方法。
+    工作原理：创建deployment同时会创建replicaset，deployment管理replicaset，replicaset管理pod，pod管理容器
+    使用deployment可以轻松的进行
+        创建ReplicaSet和Pod
+        滚动升级（不停止旧服务的状态下升级）和回滚应用（将应用回滚到之前的版本）
+        平滑地扩容和缩容
+        暂停和继续Deployment
+        等操作
+    更新deployment有两种方法：
+        1.修改镜像：kubectl set image deployment/deployment名 镜像名
+        2.修改配置文件：kubectl edit demployment deployment名
+        查看更新进度：kubectl rollout status deployment/deployment名
+        扩容：kubectl scale deployment deployment名 --replicas 数量
+        如果集群支持horizontal pod autoscaling的话可以用autoscale进行自动扩容
+    回滚：
+        查看deployment版本：kubectl rollout history deployment/deployment名
+        回滚上一个版本：kubectl rollout undo deployment/deployment名，或指定某个版本：--to-revision=版本
+        可以通过设置 .spec.revisonHistoryLimit 项来指定 deployment 最多保留多少 revison 历史记录。默认的会保留所有的 revision；如果将该项设置为 0，Deployment 就不允许回退了。
+        只有 Deployment 的 rollout 被触发才会创建一个 revision！注意！当且仅当 Deployment 的 Pod template被更改，例如更新 template 中的 label 和容器镜像时，才会触发一个rollout，从而为Deployment创建出一个新的 revision。
+    滚动更新配置：
+        .spec.minReadySeconds
+        .spec.strategy.rollingUpdate.maxSurge
+        .spec.strategy.rollingUpdate.maxUnavailable
+
+statefulset
+    有状态的合集，负责管理有状态服务，比如数据库等
+    由三部分组成：Headless Service、StatefulSet、volumeClaimTemplates
