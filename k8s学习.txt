@@ -31,3 +31,4 @@ statefulset
             如果集群中没有StorageClass的动态供应PVC的机制，也可以提前手动创建多个PV、PVC，手动创建的PVC名称必须符合之后创建的StatefulSet命名规则：(volumeClaimTemplates.name)-(pod_name)
 
 operator
+https://zhuanlan.zhihu.com/p/246550722
