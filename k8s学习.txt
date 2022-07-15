@@ -5,8 +5,7 @@ deployment
         创建ReplicaSet和Pod
         滚动升级（不停止旧服务的状态下升级）和回滚应用（将应用回滚到之前的版本）
         平滑地扩容和缩容
-        暂停和继续Deployment
-        等操作
+        暂停和继续Deployment等操作
     更新deployment有两种方法：
         1.修改镜像：kubectl set image deployment/deployment名 镜像名
         2.修改配置文件：kubectl edit demployment deployment名
@@ -23,8 +22,12 @@ deployment
         .spec.strategy.rollingUpdate.maxSurge
         .spec.strategy.rollingUpdate.maxUnavailable
 
+https://www.cnblogs.com/tylerzhou/p/11027559.html
 statefulset
     有状态的合集，负责管理有状态服务，比如数据库等
     由三部分组成：Headless Service、StatefulSet、volumeClaimTemplates
-        Headless Service：
-        https://www.cnblogs.com/tylerzhou/p/11027559.html
+        Headless Service：为每个pod提供唯一的名称。由statefulset创建的pod都是有顺序的，不能被随意取代，重建后的pod名称还是相同的。由于pod的ip是变化的所以使用pod名称作为唯一标识。
+        volumeClaimTemplates：statefulSet使用volumeClaimTemplate，称为卷申请模板，它会为每个Pod生成不同的pvc，并绑定pv， 从而实现各pod有专用存储。deployment的所有pod都使用同一个存储卷。
+            如果集群中没有StorageClass的动态供应PVC的机制，也可以提前手动创建多个PV、PVC，手动创建的PVC名称必须符合之后创建的StatefulSet命名规则：(volumeClaimTemplates.name)-(pod_name)
+
+operator
