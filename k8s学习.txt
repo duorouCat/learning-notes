@@ -32,3 +32,9 @@ statefulset
 
 operator
 https://zhuanlan.zhihu.com/p/246550722
+operator 是一种 kubernetes 的扩展形式，利用自定义资源对象（Custom Resource）来管理应用和组件，允许用户以 Kubernetes 的声明式 API 风格来管理应用及服务。
+    operator是一种为特定应用或服务提供如何运行、部署以及出现问题后如何处理的特定自定义方式。
+    operator sdk可以快速构建operator应用
+
+
+
