@@ -1,0 +1,163 @@
+分页查询页面显示，删除最后一页后需要显示前一页的数据
+
+对于可以不填也可以填写的输入框使用，需要对刷新页面后直接提交、填写后提交、填写后删除提交进行测试
+
+操作数据库的sql全写为大写，不然开启大小写敏感会出问题，指mapper.xml中的select语句的字段列表需要大写和查询获取数据时得到的map中键为大写
+
+处理包含数字的字符串进行数字比较的时候要去除字符串中的空格 $.trim(str)，并对字符串进行类型转换
+
+前端修改内容后查看是否有联动的地方，根据原变量名方法名进行查找。
+
+使用任何变量时都要进行判空处理，对于不同类型的变量有不同的内容为空的判断方法：
+    字符串：null与''
+    整型等基础类型 null
+    布尔：null
+    数组 null与[]
+    对象 ObjectUtil.isNull()，对象的属性也要判断
+
+如果请求加到消息体需要在参数部分加入requestBody
+
+调试组件时需要把systemsettings.js中的CodeMode: 'product',改为CodeMode: 'develop',才能对组件内容进行调试
+
+修改页面数据获取方式或其他后需要检测页面的所有功能是否正常
+
+在不同页面增加相同的功能时需要在每个页面都把相应功能都测试一遍
+
+如果请求被屏蔽了那就是插件把请求屏蔽了
+
+如果报错'请求方式' is not supported 可能是没有后端处理请求的方法，或者请求方式与后端处理不对应
+
+调用服务可能出现服务未启用的情况，会报找不到服务的警告
+
+字符串进行比较时需要注意大小写的问题equalsIgnoreCase()
+
+v$version显示了数据库的版本信息，通过select *,id_code from v$version查询，结果为:
+"BANNER","id_code"(列名)
+'DM Database Server 64 V8','--03134283890-20220304-158322-10045'（DM Database Server 64 V8--03134283890-20220304-158322-10045为版本）
+'DB Version: 0x7000c','--03134283890-20220304-158322-10045'
+'03134283890-20220304-158322-10045','--03134283890-20220304-158322-10045'
+
+如果vue组件不更新的话，在标签上添加key属性并在需要更新的地方修改key值即可删除旧组件，创建新组件。
+组件<v-input-number :key='key'/>  更新处key++;
+
+数据库的更新操作尽量放到service中，因为在service中更新等操作如果出现了错误会进行回滚。
+
+mybatis的resultType：
+resultType:
+
+1、基本类型  ：resultType=基本类型
+
+2、List类型：   resultType=List中元素的类型
+
+3、Map类型    单条记录：resultType =map
+
+                          多条记录：resultType =Map中value的类型
+
+
+联调调用接口后不止要查看调用是否成功，还要查看最终的调用效果是否成功，别人提供的样例也有可能是错误的，需要查看结果验证。
+
+SQL可以实现的查询条件尽量在sql中解决，尽量不要在java中再进行过滤
+
+如果出现sql执行被打印到控制台中但是数据库中没有执行，可能是@DS注解写错了
+
+对代码段进行复制后要对其内容进行修改
+
+组件内添加属性需要先查看组件的使用，已添加的属性，防止添加重复。
+
+js不检查变量类型，变量与函数名要区分开。
+
+调整样式的时候看清楚是否再正确的位置上调整，容易对父级调整导致不生效。
+
+对实例进行备份不需要发消息监控实例运行状态
+
+数据库字段判断null要用is null来判断
+
+表单使用自定义校验器validator时不能使用触发条件trigger
+
+key文件是不可读文件，如果要获取key文件的base64，前端可以使用
+let fileReader = new FileReader();
+fileReader.readAsDataURL(file);
+fileReader.onload = function () {
+  const base64 = fileReader.result;
+}
+
+如果页面多出来一个左或右尖括号，那就去搜<<或者>>查看哪里多写了
+
+uniapp的uni-card不支持长按
+
+uniapp的table好像不能放在card中，不会显示
+
+dist文件夹里面是编译好的前端项目
+
+v-datatable如果使用静态数据显示的话需要以下内容
+{
+    data: [],//存放数据，对象数组
+    pageSize: 10,//页大小
+    pageNo: 1,//当前页
+    totalCount: 10,//数据总数
+}
+
+如果出现以下错误
+Parameter 0 of constructor inrequired a bean of type that could not be found
+可能是服务的实现类没有加上@service注解
+有@service注解的类被扫描到后会自动注册到spring容器中
+
+
+本地如果丢了代码，可以在idea的项目右键->local history->show history中找到
+
+达梦数据库默认安装路径：/opt/dmdbms，使用dmdba用户创建，dmdbms为数据库安装路径，其下data文件夹为数据文件存放路径
+
+数据库大小写敏感对数据库的表名和查询字段有影响，下面两条语句对于大小写敏感的库查询结果是有区别的。
+select * from cdb_sys_menu where name like '%pool%';
+select * from cdb_sys_menu where name like '%POOL%';
+
+查询数据库大小写敏感
+dm.ini查看
+SELECT CASE_SENSITIVE();
+SELECT SF_GET_CASE_SENSITIVE_FLAG();
+0为不敏感，1为敏感。
+
+新增的按钮菜单等权限默认不显示
+
+修改组件visible要放到所有操作之后
+
+如果在created之前就出现了错误那应该是data中数据赋值出错了
+
+uaa账号登录过期有两个相关机制，1：access_token：超时后登录过期，可以由带refresh_token的请求刷新。2：refresh_token：用来刷新access_token
+uaa设置30分钟登录过期，如果access_token的超时时长大于30分钟也
+
+get请求参数长度为2048个字符，使用pathvarible时注意参数长度不要超过2048
+
+ES6模板字符串由反引号'``'包裹，主要用于传递包含html模板的字符串：`<div>{{content}}</div>`
+
+=======================================================
+==============请求中的IP地址绝对不能写死
+=======================================================
+
+上传文件应设置content-type，使用mutipartfile接收文件时应该设置{Content-Type: `multipart/form-data; boundary=<calculated when request is sent>`}
+
+如果不能用v-upload组件上传文件而需要在表单中添加文件并提交，那么应该使用formdata来存储表单内容
+使用<input ref="file" type="file"/>上传文件
+  let formData = new FormData();
+  let file = this.$refs['file'].files[0];
+  formData.append('file', file);
+
+serviceimpl没有添加@Service注解，继承、实现错误都会出现这个问题
+Parameter 1 of constructor in com.dameng.cloud.control.controller.ClusterCheckController required a bean of type 'com.dameng.cloud.control.service.impl.CheckTaskService' that could not be found.
+Action:
+Consider defining a bean of type 'com.dameng.cloud.control.service.impl.CheckTaskService' in your configuration.
+
+
+setinterval后要在页面的beforeDestroy里clearinterval
+
+uaa的revoketoken是没有找到用户报错，可能是auth.getinfo出错
+
+系统用户名为中文导致了数据库许可证上传后调用本地dll出现调用失败。
+
+js判断数组为空应使用arr.length === 0
+
+样式加载错误可能是异步导致的加载顺序问题
+
+启动报错了应该从头查看日志输出，而不是从最下面开始看，以免在开头出现错误而没找到
+
+nacos registry error可能是注册密码错误
