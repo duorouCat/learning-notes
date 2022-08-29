@@ -161,3 +161,7 @@ js判断数组为空应使用arr.length === 0
 启动报错了应该从头查看日志输出，而不是从最下面开始看，以免在开头出现错误而没找到
 
 nacos registry error可能是注册密码错误
+
+如果查询出现错误：Cause: dm.jdbc.driver.DMException: 不支持该数据类型，可能是查询时wrapper传参的类型出错了
+wrappre.eq()接收object，不对字段进行类型检查，所以编译不会报错，要多注意
+
